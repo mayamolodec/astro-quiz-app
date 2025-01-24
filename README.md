@@ -1,2 +1,2 @@
 # React
-My react project
+My empty react project
