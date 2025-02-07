@@ -75,19 +75,3 @@ const quiz_2 =[
         index: 3
     }
 ]
-
-export const quizes = [
-    {
-        id: 0,
-        quiz:quiz_1
-    },
-    {
-        id: 1,
-        quiz:quiz_2
-    },
-    {
-        id: 2,
-        quiz:quiz_1
-    }
-
-]
