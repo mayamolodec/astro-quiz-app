@@ -3,7 +3,7 @@ let states = [
     id:0,
     name: "Quiz #1",
     questions:5,
-    score:"",
+    score:null,
 
   },
   {
@@ -32,8 +32,8 @@ function QuizButton({name, status, score}){
 function ListQuizes(){
   console.log(states);
   const listQuizes = states.map(state => {
-    let status = (state.score === "") ? "Start" : "Restart";
-    let score = (state.score === "") ? "" : state.score+"/"+state.questions;
+    let status = (state.score === null) ? "Start" : "Restart";
+    let score = (state.score === null) ? "" : state.score+"/"+state.questions;
 
     return(
       <QuizButton name = {state.name} status = {status}  score={score}/>
