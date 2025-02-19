@@ -1,0 +1,35 @@
+#root {
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  font-family: "Space Mono", serif;
+  font-weight: 700;
+  font-style: normal;
+  margin: 0 auto;
+  padding: clamp(10px, 5%, 20px);
+}
+
+:root {
+  overflow:hidden; 
+  background: hsl(210deg, 30%, 12%) ;
+  color: hsl(0deg 0% 100%) ;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+html,body{ 
+  margin: 0; 
+  padding:0; 
+  height:100%; 
+  width:100%; }
+
+
+.firstPageTitle {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
