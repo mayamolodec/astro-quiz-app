@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   css: {
     modules: {
-      generateScopedName: "[name]__[local]__[hash:hex:5]", // Removes "module"
+      generateScopedName: "[name]__[local]__[hash:hex:5]",
     },
   },
 });

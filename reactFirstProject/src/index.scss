@@ -8,13 +8,14 @@
   font-style: normal;
   margin: 0 auto;
   padding: clamp(10px, 5%, 20px);
+
 }
 
-:root {
-  overflow:hidden; 
-  background: hsl(210deg, 30%, 12%) ;
-  color: hsl(0deg 0% 100%) ;
 
+:root {
+  background: hsl(210deg, 30%, 12%);
+  overflow: hidden; 
+  color: hsl(0deg 0% 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -29,7 +30,7 @@ html,body{
   width:100%; }
 
 
-.firstPageTitle {
+.first-page__title{
   font-size: 3.2em;
   line-height: 1.1;
 }

@@ -5,7 +5,6 @@ import styles from "./ListQuizzes.module.scss"
 
 
 export default function ListQuizzes(){
-    console.log(styles);
     const states = useSelector(state => state.quizzes.quizzes);
     const listQuizes = states.map(state => {
       let status = (state.score === null) ? "Start" : "Restart";
