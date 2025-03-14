@@ -3,7 +3,7 @@ import ListQuizzes from "./components/ListQuizzes";
 function App() {
   return (
     <>
-    <h1>AstroQuiz</h1>
+    <h1 className='first-page__title'>AstroQuiz</h1>
     <ListQuizzes/>
     </>
   )
