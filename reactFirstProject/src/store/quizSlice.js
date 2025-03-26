@@ -6,10 +6,9 @@ export const fetchQuizes = createAsyncThunk("fetchQuizes", async ()=> {
 
         const data = await response.json();
 
-        return data.map(({ _id, name, __v}) => ({
+        return data.map(({ _id, name}) => ({
           id: _id,
-          name: name,
-          questions: __v
+          name: name
       }));
 })
 

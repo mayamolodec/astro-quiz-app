@@ -1,40 +1,38 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from 'react'
+// import { useState } from 'react'
 import QuizButton from "../QuizButton";
 import styles from "./ListQuizzes.module.scss"
-import { fetchQuizes } from "../../store/quizSlice";
-
+import { useGetQuizzesQuery } from "../../store/quizApi";
+import * as React from 'react'
 
 export default function ListQuizzes(){
-    const states = useSelector(state => state.quizzes.quizzes);
-    const {status, error} = useSelector(state => state.quizzes);
-  
-    const dispatch = useDispatch();
-    useEffect(()=>{
-      dispatch(fetchQuizes())
-    },[])
+    // const states = useSelector(state => state.quizzes.quizzes);
+    // const {status, error} = useSelector(state => state.quizzes);
 
-    const listQuizes = states.map(state => {
+    const {  data, isLoading, error } = useGetQuizzesQuery();
+
+    if (isLoading) return <p>Loading quizzes...</p>;
+    if (error) return <p>Error loading quizzes</p>;
+    if (!data) return <p>No data found</p>;
+
+    let score = "1/4"
+    let questions = 4;
+
+    const listQuizes = data.map(state => {
       
-      let quizStatus = (state.questions === null) ? "Start" : "Restart";
-      let score = (state.questions === null) ? "" : state.questions+"/"+state.questions;
-        if (status == 'resolved'){
-          return(
-            <QuizButton name = {state.name} status = {quizStatus}  score={score} key={state.id}/>
-          );
-        }
-        else if (status == 'loading'){
-          return(
-            <h2>Loading...</h2>
-          )
-        }
-        else if (status == 'rejected'){
-          return(
-            <h2>Error!</h2>
-          )
-        }
+      let quizStatus = (questions === null) ? "Start" : "Restart";
 
-    });
+      // For later, when there'll be a score
+      //
+      // let quizStatus = (state.questions === null) ? "Start" : "Restart";
+      // let score = (state.questions === null) ? "" : state.score+"/"+state.questions;
+
+        return(
+            <>
+            <QuizButton name = {state.name} status = {quizStatus}  score={score} key={state.id}/>
+            </>
+          );
+        });
+
   
     return <div className={styles.container}>{listQuizes}</div>
     }
