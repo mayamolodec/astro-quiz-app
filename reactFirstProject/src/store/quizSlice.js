@@ -1,29 +1,40 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+
+export const fetchQuizes = createAsyncThunk("fetchQuizes", async ()=> {
+        const response = await fetch('/quizes', 
+        {method:"get"});
+
+        const data = await response.json();
+
+        return data.map(({ _id, name}) => ({
+          id: _id,
+          name: name
+      }));
+})
 
 const quizSlice = createSlice({
     name: 'quizzes',
     initialState: {
-        quizzes:[  {
-            id:0,
-            name: "Quiz #1",
-            questions:5,
-            score:null,
-        
-          },
-          {
-            id:1,
-            name: "Quiz #2",
-            questions:5,
-            score:2
-          },
-          {
-            id:2,
-            name: "Quiz #3",
-            questions: 4,
-            score:3
-          }],
+        quizzes:[],
+        status:false,
+        error:false,
     },
-    reducers:{}
+    reducers:{},
+    extraReducers: (builder) =>{
+      builder.addCase(fetchQuizes.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+    }),
+    builder.addCase(fetchQuizes.fulfilled, (state, action)=>{
+        state.status = 'resolved';
+        state.quizzes = action.payload;
+    })
+    builder.addCase(fetchQuizes.rejected, (state, action)=>{
+        state.status = 'rejected';
+        state.error = true;
+
+    })
+    },
 });
 
 export default quizSlice.reducer;

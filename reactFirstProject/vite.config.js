@@ -8,4 +8,13 @@ export default defineConfig({
       generateScopedName: "[name]__[local]__[hash:hex:5]",
     },
   },
+  server: {
+    proxy: {
+      "/quizes": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });

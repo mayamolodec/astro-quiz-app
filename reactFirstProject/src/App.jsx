@@ -1,4 +1,6 @@
 import ListQuizzes from "./components/ListQuizzes";
+import * as React from 'react'
+
 
 function App() {
   return (
