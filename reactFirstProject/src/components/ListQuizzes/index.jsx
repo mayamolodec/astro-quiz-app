@@ -5,8 +5,6 @@ import { useGetQuizzesQuery } from "../../store/quizApi";
 import * as React from 'react'
 
 export default function ListQuizzes(){
-    // const states = useSelector(state => state.quizzes.quizzes);
-    // const {status, error} = useSelector(state => state.quizzes);
 
     const {  data, isLoading, error } = useGetQuizzesQuery();
 
@@ -20,11 +18,6 @@ export default function ListQuizzes(){
     const listQuizes = data.map(state => {
       
       let quizStatus = (questions === null) ? "Start" : "Restart";
-
-      // For later, when there'll be a score
-      //
-      // let quizStatus = (state.questions === null) ? "Start" : "Restart";
-      // let score = (state.questions === null) ? "" : state.score+"/"+state.questions;
 
         return(
             <>
