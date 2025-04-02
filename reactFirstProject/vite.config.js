@@ -15,7 +15,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/quizes": {
-        target: process.env.VITE_API_BASE_URL,
+        target: process.env.BACKEND,
         changeOrigin: true,
         secure: false,
       },
