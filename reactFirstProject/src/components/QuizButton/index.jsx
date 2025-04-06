@@ -1,4 +1,5 @@
 import styles from './QuizButton.module.scss';
+import * as React from 'react'
 
 export default function QuizButton({name, status, score}){
     return (
