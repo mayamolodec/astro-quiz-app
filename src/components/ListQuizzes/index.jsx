@@ -22,7 +22,7 @@ export default function ListQuizzes() {
 
     return (
       <>
-        <QuizButton name={state.name} status={quizStatus} score={score} key={state.id} />
+        <QuizButton name={state.name} status={quizStatus} score={score} key={state._id} id={state._id} />
       </>
     );
   });
