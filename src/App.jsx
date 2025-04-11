@@ -1,11 +1,12 @@
+import * as React from "react"
+
 import ListQuizzes from "./components/ListQuizzes";
-import * as React from 'react'
 
 function App() {
   return (
     <>
-    <h1 className='first-page__title'>AstroQuiz</h1>
-    <ListQuizzes/>
+      <h1 className="first-page__title">AstroQuiz</h1>
+      <ListQuizzes />
     </>
   )
 }

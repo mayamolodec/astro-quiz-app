@@ -14,7 +14,7 @@
 
 :root {
   background: hsl(210deg, 30%, 12%);
-  overflow: hidden; 
+  overflow: hidden;
   color: hsl(0deg 0% 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,14 +23,16 @@
 }
 
 
-html,body{ 
-  margin: 0; 
-  padding:0; 
-  height:100%; 
-  width:100%; }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
 
 
-.first-page__title{
+.first-page__title {
   font-size: 3.2em;
   line-height: 1.1;
 }

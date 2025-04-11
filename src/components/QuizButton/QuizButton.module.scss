@@ -1,29 +1,29 @@
-.container{
-    max-width: 100%;
-    min-width: 280px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items:center;
-    border-radius: 50px;
-    border: 2px solid transparent;
-    padding: 1.2em 2.4em;
-    font-family: inherit;
-    font-size: 0.9em;
-    font-weight: 500;
-    background-color: #ffffff;
-    color:#151F28;
-    cursor: pointer;
-    transition: border-color 0.25s;
-    height: auto;
-    min-height:fit-content;
-    
-    &:hover {
-      border-color: #9F50B1;
-    }
+.container {
+  max-width: 100%;
+  min-width: 280px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  padding: 1.2em 2.4em;
+  font-family: inherit;
+  font-size: 0.9em;
+  font-weight: 500;
+  background-color: #ffffff;
+  color: #151F28;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  height: auto;
+  min-height: fit-content;
 
-    &:focus,
-    &:focus-visible {
-      outline: 4px auto -webkit-focus-ring-color;
-    }
+  &:hover {
+    border-color: #9F50B1;
   }
+
+  &:focus,
+  &:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+}

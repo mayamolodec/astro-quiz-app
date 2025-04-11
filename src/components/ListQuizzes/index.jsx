@@ -1,31 +1,31 @@
-// import { useState } from 'react'
-import QuizButton from "../QuizButton";
-import styles from "./ListQuizzes.module.scss"
+import * as React from "react"
+
 import { useGetQuizzesQuery } from "../../store/quizApi";
-import * as React from 'react'
+import QuizButton from "../QuizButton";
 
-export default function ListQuizzes(){
+import styles from "./ListQuizzes.module.scss"
 
-    const {  data, isLoading, error } = useGetQuizzesQuery();
+export default function ListQuizzes() {
 
-    if (isLoading) return <p>Loading quizzes...</p>;
-    if (error) return <p>Error loading quizzes</p>;
-    if (!data) return <p>No data found</p>;
+  const { data, isLoading, error } = useGetQuizzesQuery();
 
-    let score = "1/4"
-    let questions = 4;
+  if (isLoading) return <p>Loading quizzes...</p>;
+  if (error) return <p>Error loading quizzes</p>;
+  if (!data) return <p>No data found</p>;
 
-    const listQuizes = data.map(state => {
-      
-      let quizStatus = (questions === null) ? "Start" : "Restart";
+  let score = "1/4"
+  let questions = 4;
 
-        return(
-            <>
-            <QuizButton name = {state.name} status = {quizStatus}  score={score} key={state.id}/>
-            </>
-          );
-        });
+  const listQuizes = data.map(state => {
 
-  
-    return <div className={styles.container}>{listQuizes}</div>
-    }
+    let quizStatus = (questions === null) ? "Start" : "Restart";
+
+    return (
+      <>
+        <QuizButton name={state.name} status={quizStatus} score={score} key={state.id} />
+      </>
+    );
+  });
+
+  return <div className={styles.container}>{listQuizes}</div>
+}
