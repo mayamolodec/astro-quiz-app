@@ -10,7 +10,7 @@ function App() {
     <>
       <Routes>
         <Route path="/quiz" element={<ListQuizzes />} />
-        <Route path="/regiform" element={< RegisterForm />} />
+        <Route path="/signup" element={< RegisterForm />} />
         <Route path="/quiz/:id" element={<QuizCard />} />
         <Route path="/" element={<Navigate to="/quiz" replace />} />
       </Routes>

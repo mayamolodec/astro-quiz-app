@@ -4,22 +4,9 @@ $border-width: 0.0625em;
 $border-radius: 1.875em;
 $border-radius-small: 0.6em;
 
-@keyframes fancyFade {
-    0% {
-        opacity: 0;
-        transform: scale(0.98);
-        filter: blur(0.25em);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0);
-    }
-}
 
 .container {
-    animation: fancyFade 0.8s ease-out;
+    animation-fill-mode: both;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -29,6 +16,8 @@ $border-radius-small: 0.6em;
     width: 100%;
     max-width: fit-content;
     overflow: hidden;
+    animation: fancyFade 0.8s ease-out;
+
 
     &__form {
         margin: 2em;
@@ -37,6 +26,12 @@ $border-radius-small: 0.6em;
         gap: 0.6em;
         flex: 1;
         max-width: 10em;
+
+        &.shake {
+            animation-name: shake;
+            animation-duration: 0.4s;
+            animation-timing-function: linear;
+        }
     }
 
     &__form-headline {
@@ -50,6 +45,7 @@ $border-radius-small: 0.6em;
         border: none;
         background-color: #eaeaea;
         transition: background-color 0.2s;
+        padding: 0.10em 0.75em;
 
         &:hover {
             background-color: rgb(239, 226, 245);
@@ -64,7 +60,6 @@ $border-radius-small: 0.6em;
             color: #7d7e8a;
             font-family: "Space Mono", serif;
             font-size: small;
-            padding: 0.25em 0.75em;
         }
 
         &:not(:placeholder-shown) {
@@ -111,4 +106,39 @@ $border-radius-small: 0.6em;
 
         }
     }
+
+    @keyframes shake {
+
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+
+        20%,
+        60% {
+            transform: translateX(-8px);
+        }
+
+        40%,
+        80% {
+            transform: translateX(8px);
+        }
+    }
+
+    @keyframes fancyFade {
+        0% {
+            opacity: 0;
+            transform: scale(0.98);
+            filter: blur(0.25em);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+        }
+    }
+
+
+
 }
