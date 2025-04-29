@@ -21,7 +21,7 @@ export default function RegisterForm() {
         setTimeout(() => setShake(false), 500);
     };
 
-    const errMessage = "Field is required";
+    const errMessage = "This field is required";
 
     return (
         <>
@@ -30,19 +30,19 @@ export default function RegisterForm() {
                     <div className={styles["container__form-headline"]}>Sign Up</div>
                     <input {...register("login", { required: errMessage })}
                         className={`${styles["container__form-input"]} ${errors.login ? styles.error : ""}`} type="text" placeholder="Login" />
-                    <p className={styles["container__form-error"]}>{errors.login?.message}</p>
+                    {errors.login && <p className={styles["container__form-error"]}>{errors.login.message}</p>}
 
-                    <input {...register("email", { required: errMessage, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "Not an email" } })} type="text"
+                    <input {...register("email", { required: errMessage, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "Invalid email" } })} type="text"
                         className={`${styles["container__form-input"]} ${errors.email ? styles.error : ""}`} placeholder="E-mail" />
-                    <p className={styles["container__form-error"]}>{errors.email?.message}</p>
+                    {errors.email && <p className={styles["container__form-error"]}>{errors.email.message}</p>}
 
-                    <input {...register("password", { required: errMessage })}
+                    <input {...register("password", { required: errMessage, minLength: { value: 6, message: "Password must have at least 6 characters" } })}
                         className={`${styles["container__form-input"]} ${errors.password ? styles.error : ""}`} type="password" placeholder="Password" />
-                    <p className={styles["container__form-error"]}>{errors.password?.message}</p>
+                    {errors.password && <p className={styles["container__form-error"]}>{errors.password.message}</p>}
 
-                    <input {...register("passwordCheck", { required: errMessage, validate: value => value === password.current || "The passwords do not match" })}
+                    <input {...register("passwordCheck", { required: errMessage, validate: value => value === password.current || "Passwords do not match" })}
                         className={`${styles["container__form-input"]} ${errors.passwordCheck ? styles.error : ""}`} type="password" placeholder="Password check" />
-                    <p className={styles["container__form-error"]}>{errors.passwordCheck?.message}</p>
+                    {errors.passwordCheck && <p className={styles["container__form-error"]}>{errors.passwordCheck.message}</p>}
 
                     <button className={styles["container__form-button"]} type="submit">
                         Send
