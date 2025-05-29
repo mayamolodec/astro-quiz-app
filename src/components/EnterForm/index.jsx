@@ -12,9 +12,32 @@ export default function EnterForm() {
 
     password.current = watch("password");
 
-    const onSubmit = (data) => {
-        alert(JSON.stringify(data));
+    const onSubmit = async (e) => {
+        const loginData = JSON.stringify(e);
+
+        try {
+            const res = await fetch("http://localhost:3000/users/sign-up", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: loginData,
+            });
+
+            if (!res.ok) {
+                const errorData = await res.json();
+
+                throw new Error(errorData.message || "Sign in failed");
+            }
+
+            const result = await res.json();
+
+            console.log("Success:", result);
+        }
+        catch (error) {
+            console.error("Error:", error.message);
+        }
+
     }
+
     const onInvalid = () => {
         setShake(true);
         setTimeout(() => setShake(false), 500);
