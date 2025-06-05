@@ -8,7 +8,7 @@ export default function QuizButton({ name, status, score, id }) {
   const navigate = useNavigate();
 
   return (
-    <button className={styles.container} onClick={() => navigate(`/quizzes/${id}`)} key={name} value={name}>
+    <button className={styles.container} onClick={() => navigate(`/quizes/${id}`)} key={name} value={name}>
       <div>{name}:  <span style={{ color: "#9F50B1" }}>{status}</span></div>
       <div>{score}</div>
     </button>

@@ -8,7 +8,7 @@ export const quizApi = createApi({
   }),
   endpoints: (builder) => ({
     getQuizzes: builder.query({
-      query: () => "/quizes",
+      query: () => "quizes",
     }),
     getCurrentUser: builder.query({
       query: () => "users/me",
