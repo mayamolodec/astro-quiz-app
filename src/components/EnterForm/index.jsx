@@ -1,41 +1,16 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import regiFormImg from "../../assets/Frame5_2.svg";
 import styles from "../RegisterForm/RegisterForm.module.scss";
 
 export default function EnterForm() {
-    const { register, handleSubmit, formState: { errors }, watch } = useForm({ defaultValues: { login: "", email: "", password: "", passwordCheck: "" } });
+    const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: { login: "", email: "", password: "", passwordCheck: "" } });
     const [shake, setShake] = useState(false);
-    const password = useRef({});
 
-    password.current = watch("password");
-
-    const onSubmit = async (e) => {
-        const loginData = JSON.stringify(e);
-
-        try {
-            const res = await fetch("http://localhost:3000/users/sign-up", {
-                method: "POST",
-                headers: { "Content-type": "application/json" },
-                body: loginData,
-            });
-
-            if (!res.ok) {
-                const errorData = await res.json();
-
-                throw new Error(errorData.message || "Sign in failed");
-            }
-
-            const result = await res.json();
-
-            console.log("Success:", result);
-        }
-        catch (error) {
-            console.error("Error:", error.message);
-        }
-
+    const onSubmit = (e) => {
+        console.log(JSON.stringify(e));
     }
 
     const onInvalid = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import regiFormImg from "../../assets/Frame5_2.svg";
@@ -9,9 +9,6 @@ import styles from "./RegisterForm.module.scss"
 export default function RegisterForm() {
     const { register, handleSubmit, formState: { errors }, watch } = useForm({ defaultValues: { login: "", email: "", password: "", passwordCheck: "" } });
     const [shake, setShake] = useState(false);
-    const password = useRef({});
-
-    password.current = watch("password");
 
     const onSubmit = (data) => {
         alert(JSON.stringify(data));
@@ -40,7 +37,7 @@ export default function RegisterForm() {
                         className={`${styles["container__form-input"]} ${errors.password ? styles.error : ""}`} type="password" placeholder="Password" />
                     {errors.password && <p className={styles["container__form-error"]}>{errors.password.message}</p>}
 
-                    <input {...register("passwordCheck", { required: errMessage, validate: value => value === password.current || "Passwords do not match" })}
+                    <input {...register("passwordCheck", { required: errMessage, validate: value => value === watch("password") || "Passwords do not match" })}
                         className={`${styles["container__form-input"]} ${errors.passwordCheck ? styles.error : ""}`} type="password" placeholder="Password check" />
                     {errors.passwordCheck && <p className={styles["container__form-error"]}>{errors.passwordCheck.message}</p>}
 
