@@ -21,9 +21,7 @@ export default function ListQuizzes() {
     let quizStatus = (questions === null) ? "Start" : "Restart";
 
     return (
-      <>
-        <QuizButton name={state.name} status={quizStatus} score={score} key={state._id} id={state._id} />
-      </>
+      <QuizButton name={state.name} status={quizStatus} score={score} key={state._id} id={state._id} />
     );
   });
 

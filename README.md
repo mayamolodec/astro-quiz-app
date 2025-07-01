@@ -1,2 +1,2 @@
 # React
-My empty react project
+Astronomy quiz React application
