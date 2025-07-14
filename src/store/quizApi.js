@@ -10,6 +10,9 @@ export const quizApi = createApi({
     getQuizzes: builder.query({
       query: () => "quizes",
     }),
+    getQuestions: builder.query({
+      query: (id) => `quizes/${id}`,
+    }),
     getCurrentUser: builder.query({
       query: () => "users/me",
     }),
@@ -39,6 +42,7 @@ export const quizApi = createApi({
 
 export const {
   useGetQuizzesQuery,
+  useGetQuestionsQuery,
   useGetCurrentUserQuery,
   useSignInMutation,
   useSignUpMutation,

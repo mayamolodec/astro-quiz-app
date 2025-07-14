@@ -1,10 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 import styles from "../QuizCard/QuizCard.module.scss";
 
 export default function ShowResults({ currentScore, numberOfQuestions, onSubmit, placeHolderImg }) {
-    const navigate = useNavigate();
 
     let result = `Your result is ${currentScore}/${numberOfQuestions}`;
     let message = currentScore === 4
@@ -24,7 +22,7 @@ export default function ShowResults({ currentScore, numberOfQuestions, onSubmit,
                             {message}
                         </h3>
                     </div>
-                    <button className={styles["container__card-button"]} type="button" onClick={() => navigate("/quizes")}>
+                    <button className={styles["container__card-button"]}>
                         To the quizzes list
                     </button>
                 </form>

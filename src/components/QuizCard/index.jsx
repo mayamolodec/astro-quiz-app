@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 import { useGetQuestionsQuery } from "../../store/quizApi";
 import ShowQuestion from "../ShowQuestion/index";
@@ -12,6 +12,7 @@ export default function QuizCard() {
     const [isFinished, setIsFinished] = useState(false);
     const [selected, setSelected] = useState("not_selected");
     const { data, isLoading, error } = useGetQuestionsQuery(id);
+    const navigate = useNavigate();
 
     if (isLoading) return <p>Loading quizzes...</p>;
     if (error) return <p>Error loading quiz</p>;
@@ -21,7 +22,7 @@ export default function QuizCard() {
 
     const questions = data.questions;
 
-    const onSubmit = (e) => {
+    const submitAnswer = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const selectedValue = formData.get("answer");
@@ -39,10 +40,14 @@ export default function QuizCard() {
         }
     }
 
-    return isFinished ?
-        <ShowResults currentScore={currentScore} numberOfQuestions={questions.length} onSubmit={onSubmit}
-            placeHolderImg={placeHolderImg} /> :
-        <ShowQuestion currentQuestion={questions[currentQuestionIndex]} onSubmit={onSubmit}
-            placeHolderImg={placeHolderImg} selected={selected} setSelected={setSelected} />;
+    const submitResults = (e) => {
+        e.preventDefault();
+        navigate("/quiz");
+    }
 
+    return isFinished ?
+        <ShowResults currentScore={currentScore} numberOfQuestions={questions.length} onSubmit={submitResults}
+            placeHolderImg={placeHolderImg} /> :
+        <ShowQuestion currentQuestion={questions[currentQuestionIndex]} onSubmit={submitAnswer}
+            placeHolderImg={placeHolderImg} selected={selected} setSelected={setSelected} />;
 }
