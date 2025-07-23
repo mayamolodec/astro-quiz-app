@@ -1,48 +1,53 @@
-import React from "react";
-import { useParams } from "react-router-dom"
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom"
 
-import styles from "./QuizCard.module.scss";
+import { useGetQuestionsQuery } from "../../store/quizApi";
+import ShowQuestion from "../ShowQuestion/index";
+import ShowResults from "../ShowResults/index";
 
 export default function QuizCard() {
     const { id } = useParams();
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [currentScore, setCurrentScore] = useState(0);
+    const [isFinished, setIsFinished] = useState(false);
+    const [selected, setSelected] = useState("not_selected");
+    const { data, isLoading, error } = useGetQuestionsQuery(id);
+    const navigate = useNavigate();
+
+    if (isLoading) return <p>Loading quizzes...</p>;
+    if (error) return <p>Error loading quiz</p>;
+    if (!data) return <p>No data found</p>;
+
     const placeHolderImg = "https://apod.nasa.gov/apod/image/2412/MarsClouds_Perseverance_2048.jpg";
 
-    return (
-        <>
-            <div className={styles["container"]}>
-                <form className={styles["container__card"]}>
-                    <img className={styles["container__card-img"]} src={placeHolderImg} />
-                    <div className={styles["container__card-text"]}>
-                        <h2 className={styles["container__card-text-question"]}>
-                            % QuestionText %
-                        </h2>
-                        <div className={styles["container__card-text-options"]}>
-                            <label className={styles["container__card-text-options-element"]}>
-                                <input type="radio" value="option1" name="answer" />
-                                % opt1 %
-                            </label>
-                            <label className={styles["container__card-text-options-element"]}>
-                                <input type="radio" value="option2" name="answer" />
-                                % opt2 %
-                            </label>
-                            <label className={styles["container__card-text-options-element"]}>
-                                <input type="radio" value="option3" name="answer" />
-                                % opt3 %
-                            </label>
-                            <label className={styles["container__card-text-options-element"]}>
-                                <input type="radio" value="option4" name="answer" />
-                                % opt4 %
-                            </label>
-                        </div>
-                    </div>
-                    <button className={styles["container__card-button"]}>
-                        % Submit %
-                    </button>
-                </form>
-            </div>
-            <p style={{ color: "grey" }}>Quiz number {id}</p>
-        </>
+    const questions = data.questions;
 
-    )
+    const submitAnswer = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const selectedValue = formData.get("answer");
 
+        if (selectedValue == "true") {
+            setCurrentScore(score => score + 1);
+        }
+
+        if (questions[currentQuestionIndex + 1]) {
+            setCurrentQuestionIndex(prev => prev + 1);
+            setSelected("not_selected");
+        }
+        else {
+            setIsFinished(true);
+        }
+    }
+
+    const submitResults = (e) => {
+        e.preventDefault();
+        navigate("/quiz");
+    }
+
+    return isFinished ?
+        <ShowResults currentScore={currentScore} numberOfQuestions={questions.length} onSubmit={submitResults}
+            placeHolderImg={placeHolderImg} /> :
+        <ShowQuestion currentQuestion={questions[currentQuestionIndex]} onSubmit={submitAnswer}
+            placeHolderImg={placeHolderImg} selected={selected} setSelected={setSelected} />;
 }
