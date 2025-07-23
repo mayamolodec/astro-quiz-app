@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  background-color: azure;
+  align-items: stretch;
+
+  &__left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}

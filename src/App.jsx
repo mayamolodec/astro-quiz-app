@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Navigate, Routes } from "react-router-dom";
 
 import EnterForm from "./components/EnterForm";
+// import Header from "./components/Header";
 import ListQuizzes from "./components/ListQuizzes";
 import QuizCard from "./components/QuizCard";
 import RegisterForm from "./components/RegisterForm";
