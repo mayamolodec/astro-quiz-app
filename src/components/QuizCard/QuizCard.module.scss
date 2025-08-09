@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 30px;
-    animation: img_appear 0.5s;
+    animation: fancyFade 0.8s ease-out;
     height: 100vh;
 
     &__card {
@@ -110,5 +110,19 @@
             cursor: not-allowed;
         }
 
+    }
+
+    @keyframes fancyFade {
+        0% {
+            opacity: 0;
+            transform: scale(0.98);
+            filter: blur(0.25em);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+        }
     }
 }

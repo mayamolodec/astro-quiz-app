@@ -18,8 +18,6 @@ export default function QuizCard() {
     if (error) return <p>Error loading quiz</p>;
     if (!data) return <p>No data found</p>;
 
-    const placeHolderImg = "https://apod.nasa.gov/apod/image/2412/MarsClouds_Perseverance_2048.jpg";
-
     const questions = data.questions;
 
     const submitAnswer = (e) => {
@@ -47,7 +45,7 @@ export default function QuizCard() {
 
     return isFinished ?
         <ShowResults currentScore={currentScore} numberOfQuestions={questions.length} onSubmit={submitResults}
-            placeHolderImg={placeHolderImg} /> :
+            placeHolderImg={"/Placeholder.png"} /> :
         <ShowQuestion currentQuestion={questions[currentQuestionIndex]} onSubmit={submitAnswer}
-            placeHolderImg={placeHolderImg} selected={selected} setSelected={setSelected} />;
+            placeHolderImg={"/Placeholder.png"} selected={selected} setSelected={setSelected} />;
 }
