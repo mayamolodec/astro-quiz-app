@@ -7,6 +7,7 @@ $border-radius-small: 0.6em;
 
 .container {
     animation-fill-mode: both;
+    color: hsl(210deg, 30%, 12%);
     min-height: fit-content;
     display: flex;
     flex-direction: row;
