@@ -19,7 +19,7 @@ function App() {
           <Route path="/sign-up" element={< RegisterForm />} />
           <Route path="/sign-in" element={<EnterForm />} />
           <Route path="/quiz/:id" element={<QuizCard />} />
-          <Route path="/Profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/" element={<Navigate to="/quiz" replace />} />
           <Route path="*" element={<Navigate to="/quiz" replace />} />
         </Routes>

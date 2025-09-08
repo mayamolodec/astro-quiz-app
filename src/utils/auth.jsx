@@ -4,7 +4,8 @@ import { Navigate } from "react-router-dom";
 import { useGetCurrentUserQuery } from "../store/quizApi";
 
 const PrivateRoute = ({ children }) => {
-    const { error, isLoading } = useGetCurrentUserQuery();
+
+    const {error, isLoading } = useGetCurrentUserQuery();
 
     if (isLoading) return <div>Loading...</div>;
 

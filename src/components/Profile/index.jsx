@@ -8,6 +8,7 @@ import styles from "./Profile.module.scss";
 export default function Profile() {
     const { data, error, isLoading } = useGetCurrentUserQuery();
 
+    console.log(data);
     if (isLoading) {
         return <h1>Loading...</h1>
     }
@@ -18,8 +19,8 @@ export default function Profile() {
     return (
         <div className={styles["container"]}>
             <div className={styles["container__card"]}>
-                <p> <span style={{ color: "#9F50B1" }}>Name:</span> {data.name}</p>
-                <p> <span style={{ color: "#9F50B1" }}>Email:</span> {data.email}</p>
+                <p> <span style={{ color: "#9F50B1" }}>Name:</span> {data.user.name}</p>
+                <p> <span style={{ color: "#9F50B1" }}>Email:</span> {data.user.email}</p>
             </div>
 
         </div>
