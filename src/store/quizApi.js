@@ -13,15 +13,28 @@ export const quizApi = createApi({
   }),
   endpoints: (builder) => ({
     getQuizzes: builder.query({
-      query: () => "quizzes",
+      query: () => "quizzes?select=*",
     }),
     getQuestions: builder.query({
       query: (id) => `questions?quiz_id=eq.${id}&select=*&order=id.asc`,
     }),
+    addResult: builder.mutation({
+      query:({user_id, quiz_id, result}) =>({
+        url:"/results",
+        method: "POST",
+        body:{
+          user_id,
+          quiz_id,
+          result
+        }
+      })
+    })
   }),
+
 });
 
 export const {
   useGetQuizzesQuery,
   useGetQuestionsQuery,
+  useAddResultMutation,
 } = quizApi;

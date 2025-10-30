@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 
+import { useAddResultMutation } from "../../store/quizApi";
 import { useGetQuestionsQuery } from "../../store/quizApi";
+import { supabase } from "../../supabaseClient";
 import ShowQuestion from "../ShowQuestion/index";
 import ShowResults from "../ShowResults/index";
 
@@ -13,6 +15,7 @@ export default function QuizCard() {
     const [selected, setSelected] = useState(null);
     const { data, isLoading, error } = useGetQuestionsQuery(id);
     const navigate = useNavigate();
+    const [addResult] = useAddResultMutation();
 
     if (isLoading) return <p>Loading quizzes...</p>;
     if (error) return <p>Error loading quiz</p>;
@@ -42,8 +45,22 @@ export default function QuizCard() {
         }
     }
 
-    const submitResults = (e) => {
+    const submitResults = async(e) => {
         e.preventDefault();
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (!user) return;
+
+        try{
+            await addResult({
+                user_id: user.id,
+                quiz_id: id,
+                result: currentScore
+              })
+        }
+        catch (err){
+            console.error("Unexpected error:", err);
+        }
         navigate("/quiz");
     }
 
