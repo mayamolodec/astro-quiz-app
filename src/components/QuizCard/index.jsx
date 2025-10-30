@@ -10,7 +10,7 @@ export default function QuizCard() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentScore, setCurrentScore] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
-    const [selected, setSelected] = useState("not_selected");
+    const [selected, setSelected] = useState(null);
     const { data, isLoading, error } = useGetQuestionsQuery(id);
     const navigate = useNavigate();
 
@@ -18,22 +18,24 @@ export default function QuizCard() {
     if (error) return <p>Error loading quiz</p>;
     if (!data) return <p>No data found</p>;
 
-    const placeHolderImg = "https://apod.nasa.gov/apod/image/2412/MarsClouds_Perseverance_2048.jpg";
+    const placeHolderImg = "https://jmwdqvycbnpbjivfzukh.supabase.co/storage/v1/object/public/Quiz_images/Placeholder.png";
 
-    const questions = data.questions;
+    const questions = data;
 
     const submitAnswer = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const selectedValue = formData.get("answer");
 
-        if (selectedValue == "true") {
+        console.log(typeof selectedValue);
+
+        if (selectedValue === "true") {
             setCurrentScore(score => score + 1);
         }
 
         if (questions[currentQuestionIndex + 1]) {
             setCurrentQuestionIndex(prev => prev + 1);
-            setSelected("not_selected");
+            setSelected(null);
         }
         else {
             setIsFinished(true);
