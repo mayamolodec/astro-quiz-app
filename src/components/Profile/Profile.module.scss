@@ -1,0 +1,44 @@
+$font-size-base: 1em;
+$font-size-lg: 1.5em;
+$border-width: 0.0625em;
+$border-radius: 1.875em;
+$border-radius-small: 0.6em;
+
+
+.container {
+    color: hsl(210deg, 30%, 12%);
+    min-height: fit-content;
+    margin: 5em auto;
+    border-radius: $border-radius;
+    background-color: white;
+    width: 100%;
+    max-width: fit-content;
+    animation: fancyFade 0.8s ease-out;
+
+    &__card {
+        margin: 2em;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6em;
+        flex: 1;
+        max-width: 15em;
+
+        p {
+            margin: 0;
+        }
+
+        @keyframes fancyFade {
+            0% {
+                opacity: 0;
+                transform: scale(0.98);
+                filter: blur(0.25em);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+    }
+}

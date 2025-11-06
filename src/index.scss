@@ -1,21 +1,12 @@
 #root {
-  max-width: 1000px;
-  max-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Space Mono", serif;
-  font-style: normal;
-  margin: 0 auto;
-  padding: 1rem;
-  box-sizing: border-box;
-  overflow: unset;
+  height: 100vh;
 }
 
 
 :root {
-  background: hsl(210deg, 30%, 12%);
-  overflow: hidden;
   color: hsl(0deg 0% 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -30,10 +21,20 @@ body {
   padding: 0;
   height: 100%;
   width: 100%;
+  background-color: hsl(210deg, 30%, 12%);
+  overflow: hidden;
 }
 
+.main-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Space Mono", serif;
+  font-style: normal;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 1rem;
 
-.first-page__title {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
