@@ -1,41 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
 
-import { supabase } from "../supabaseClient";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const PrivateRoute = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
-  useEffect(() => {
-    const checkUser = async () => {
-      const { data, error } = await supabase.auth.getUser();
-
-      if (error) {
-        console.error("Error fetching user:", error);
-      } else {
-        setUser(data.user);
-      }
-
-      setLoading(false);
-    };
-
-    checkUser();
-
-    const { data: subscription } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null);
-      }
-    );
-
-    return () => {
-      subscription?.subscription?.unsubscribe?.();
-    };
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-
-  if (!user) return <Navigate to="/sign-in" />;
+  if (!user) return <Navigate to="/sign-in" replace />;
 
   return children;
 };

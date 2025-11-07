@@ -18,6 +18,9 @@ export const quizApi = createApi({
     getQuestions: builder.query({
       query: (id) => `questions?quiz_id=eq.${id}&select=*&order=id.asc`,
     }),
+    getUser: builder.query({
+      query: (id) => `profiles?id=eq.${id}&select=*`,
+    }),
     addResult: builder.mutation({
       query:({user_id, quiz_id, result}) =>({
         url:"/results",
@@ -28,6 +31,9 @@ export const quizApi = createApi({
           result
         }
       })
+    }),
+    getResult: builder.query({
+      query: (id) => `results?select=*,quizzes(name)&user_id=eq.${id}`, //results?select=*,quizzes(name)&user_id=eq.YOUR_ID   results?quizzes(name)&user_id=eq.${id}&select=*
     })
   }),
 
@@ -37,4 +43,6 @@ export const {
   useGetQuizzesQuery,
   useGetQuestionsQuery,
   useAddResultMutation,
+  useGetResultQuery,
+  useGetUserQuery,
 } = quizApi;
