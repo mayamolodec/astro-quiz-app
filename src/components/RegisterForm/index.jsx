@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import regiFormImg from "../../assets/Frame5_2.svg";
-import { useSignUpMutation } from "../../store/quizApi";
+import { supabase } from "../../supabaseClient";
 
 import styles from "./RegisterForm.module.scss"
 
@@ -12,29 +12,32 @@ export default function RegisterForm() {
     const navigate = useNavigate();
     const { register, handleSubmit, setError, formState: { errors }, watch } = useForm({ defaultValues: { name: "", email: "", password: "", passwordCheck: "" } });
     const [shake, setShake] = useState(false);
-    const [signUp] = useSignUpMutation();
 
     const onSubmit = async (e) => {
         delete e["passwordCheck"];
+        delete e["name"];
 
         try {
-            await signUp(e).unwrap();
-            navigate("/quiz");
-        }
-        catch (error) {
-            if (error?.status === 400) {
-                console.log("User already exists");
-                setError("email", {
-                    type: "manual",
-                    message: "User already exists",
-                });
+            const { error } = await supabase.auth.signUp(e);
+
+            if (error) {
+                if (error.message.includes("User already registered")){
+                    setError("email", {
+                        type:"manual",
+                        message: "User already registered",
+                    })
+                } else {
+                    console.error("Supabase sign-up error:", error.message);
+                }
                 setShake(true);
                 setTimeout(() => setShake(false), 500);
-            } else {
-                console.error("Unexpected error:", error);
-            }
-        }
 
+                return;
+            }
+            navigate("/quiz");
+        } catch (err) {
+            console.error("Unexpected error:", err);
+          }
     }
 
     const onInvalid = () => {

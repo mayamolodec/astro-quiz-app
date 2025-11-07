@@ -4,33 +4,39 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import regiFormImg from "../../assets/Frame5_2.svg";
-import { useSignInMutation } from "../../store/quizApi";
+import { supabase } from "../../supabaseClient";
 import styles from "../RegisterForm/RegisterForm.module.scss";
 
 export default function EnterForm() {
     const navigate = useNavigate();
     const { register, handleSubmit, setError, formState: { errors } } = useForm({ defaultValues: { email: "", password: "" } });
     const [shake, setShake] = useState(false);
-    const [signIn] = useSignInMutation();
+    // const [signIn] = useSignInMutation();
 
     const onSubmit = async (e) => {
 
         try {
-            await signIn(e).unwrap();
-            navigate("/quiz");
-        }
-        catch (error) {
-            if (error?.status === 403 || error?.status === 404) {
+            const { data: signInData, error } = await supabase.auth.signInWithPassword(e);
+
+              if (error) {
                 setError("password", {
-                    type: "manual",
-                    message: "Wrong password or email",
+                  type: "manual",
+                  message: "Wrong email or password",
                 });
                 setShake(true);
                 setTimeout(() => setShake(false), 500);
-            } else {
-                console.error("Unexpected error:", error);
-            }
+                console.error("Supabase sign-in error:", error.message);
+
+                return;
+              }
+
+              console.log("User signed in:", signInData.user);
+              navigate("/quiz");
         }
+        catch (err) {
+      console.error("Unexpected error:", err);
+            }
+
     }
 
     const onInvalid = () => {

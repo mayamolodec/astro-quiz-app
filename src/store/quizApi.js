@@ -3,47 +3,46 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const quizApi = createApi({
   reducerPath: "quizApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_BASE_URL,
-    credentials: "include",
+    baseUrl: `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/`,
+    prepareHeaders: (headers) => {
+      headers.set("apikey", import.meta.env.VITE_SUPABASE_ANON_KEY);
+      headers.set("Authorization", `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`);
+
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     getQuizzes: builder.query({
-      query: () => "quizes",
+      query: () => "quizzes?select=*",
     }),
     getQuestions: builder.query({
-      query: (id) => `quizes/${id}`,
+      query: (id) => `questions?quiz_id=eq.${id}&select=*&order=id.asc`,
     }),
-    getCurrentUser: builder.query({
-      query: () => "users/me",
+    getUser: builder.query({
+      query: (id) => `profiles?id=eq.${id}&select=*`,
     }),
-    signUp: builder.mutation({
-      query: (userData) => ({
-        url: "users/sign-up",
+    addResult: builder.mutation({
+      query:({user_id, quiz_id, result}) =>({
+        url:"/results",
         method: "POST",
-        body: userData,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }),
+        body:{
+          user_id,
+          quiz_id,
+          result
+        }
+      })
     }),
-
-    signIn: builder.mutation({
-      query: (userCredentials) => ({
-        url: "users/sign-in",
-        method: "POST",
-        body: userCredentials,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }),
-    }),
+    getResult: builder.query({
+      query: (id) => `results?select=*,quizzes(name)&user_id=eq.${id}`, //results?select=*,quizzes(name)&user_id=eq.YOUR_ID   results?quizzes(name)&user_id=eq.${id}&select=*
+    })
   }),
+
 });
 
 export const {
   useGetQuizzesQuery,
   useGetQuestionsQuery,
-  useGetCurrentUserQuery,
-  useSignInMutation,
-  useSignUpMutation,
+  useAddResultMutation,
+  useGetResultQuery,
+  useGetUserQuery,
 } = quizApi;

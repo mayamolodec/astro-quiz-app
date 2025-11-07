@@ -1,17 +1,14 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-import { useGetCurrentUserQuery } from "../store/quizApi";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const PrivateRoute = ({ children }) => {
-    const { data, error, isLoading } = useGetCurrentUserQuery();
+  const { user } = useAuth();
 
-    console.log(data);
-    if (isLoading) return <div>Loading...</div>;
+  if (!user) return <Navigate to="/sign-in" replace />;
 
-    if (error) return <Navigate to="/sign-in" />;
-
-    return children;
+  return children;
 };
 
-export default PrivateRoute
+export default PrivateRoute;

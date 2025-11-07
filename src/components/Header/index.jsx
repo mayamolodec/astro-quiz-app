@@ -2,20 +2,19 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useGetCurrentUserQuery } from "../../store/quizApi";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 import styles from "./Header.module.scss"
 
 export default function Header() {
-    const { error } = useGetCurrentUserQuery();
     const [isOpen, setIsOpen] = useState(false)
-
-    let userStatus = error ? "unauth" : "auth";
+    const { user } = useAuth();
+    let userStatus = user? "auth": "unauth";
 
     return <nav className={styles.container}>
         <div className={styles["container__left"]}>
             <Link to="/ListQuizzes">
-                <img className={styles["container__left-img"]} alt="Go to homepage" src="/public/favicon.svg" />
+                <img className={styles["container__left-img"]} alt="Go to homepage" src="/favicon.svg" />
             </Link>
             <div className={`${styles["container__left-links"]} ${isOpen ? styles.show : ""}`}>
                 <Link to="/ListQuizzes" >Quizzes</Link>
@@ -29,7 +28,7 @@ export default function Header() {
         <div className={styles["container__right"]}>
             <div className={styles["container__right-menu"]} >
                 <Link to="/Profile" >Profile</Link>
-                <img className={styles["container__right-img"]} src={`/public/avatar_${userStatus}.png`} />
+                <img className={styles["container__right-img"]} src={`/avatar_${userStatus}.png`} />
             </div>
         </div>
     </nav>
