@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import regiFormImg from "../../assets/Frame5_2.svg";
-// import { useSignUpMutation } from "../../store/quizApi";
 import { supabase } from "../../supabaseClient";
 
 import styles from "./RegisterForm.module.scss"
@@ -13,7 +12,6 @@ export default function RegisterForm() {
     const navigate = useNavigate();
     const { register, handleSubmit, setError, formState: { errors }, watch } = useForm({ defaultValues: { name: "", email: "", password: "", passwordCheck: "" } });
     const [shake, setShake] = useState(false);
-    // const [signUp] = useSignUpMutation();
 
     const onSubmit = async (e) => {
         delete e["passwordCheck"];

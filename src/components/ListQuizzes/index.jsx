@@ -15,7 +15,6 @@ export default function ListQuizzes() {
   if (!data) return <p>No data found</p>;
 
   let score = "1/4"
-  // let questions = 4;
 
   const listQuizes = data.map(state => {
   let quizStatus = "Start";
