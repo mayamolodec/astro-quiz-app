@@ -13,13 +13,13 @@ export const quizApi = createApi({
   }),
   endpoints: (builder) => ({
     getQuizzes: builder.query({
-      query: () => "quizzes?select=*",
+      query: () => "quizzes?select=*&order=name.asc",
     }),
     getQuestions: builder.query({
       query: (id) => `questions?quiz_id=eq.${id}&select=*&order=id.asc`,
     }),
     getUser: builder.query({
-      query: (id) => `profiles?id=eq.${id}&select=*`,
+      query: (id) => `profiles?id=eq.${id}`,
     }),
     addResult: builder.mutation({
       query:({user_id, quiz_id, result}) =>({
@@ -30,6 +30,13 @@ export const quizApi = createApi({
           quiz_id,
           result
         }
+      })
+    }),
+    addUserName: builder.mutation({
+      query: ({id, name}) => ({
+        url:`/profiles?id=eq.${id}`,
+        method: "PATCH",
+        body:{name}
       })
     }),
     getResult: builder.query({
@@ -43,6 +50,7 @@ export const {
   useGetQuizzesQuery,
   useGetQuestionsQuery,
   useAddResultMutation,
+  useAddUserNameMutation,
   useGetResultQuery,
   useGetUserQuery,
 } = quizApi;

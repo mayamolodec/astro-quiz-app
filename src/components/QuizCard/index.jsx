@@ -21,7 +21,7 @@ export default function QuizCard() {
     if (error) return <p>Error loading quiz</p>;
     if (!data) return <p>No data found</p>;
 
-    const placeHolderImg = "https://jmwdqvycbnpbjivfzukh.supabase.co/storage/v1/object/public/Quiz_images/Placeholder.png";
+    const placeHolderImg = "https://jmwdqvycbnpbjivfzukh.supabase.co/storage/v1/object/public/Quiz_images/placeholder.webp";
 
     const questions = data;
 
@@ -29,8 +29,6 @@ export default function QuizCard() {
         e.preventDefault();
         const formData = new FormData(e.target);
         const selectedValue = formData.get("answer");
-
-        console.log(typeof selectedValue);
 
         if (selectedValue === "true") {
             setCurrentScore(score => score + 1);
