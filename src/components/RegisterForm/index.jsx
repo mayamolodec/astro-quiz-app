@@ -4,21 +4,27 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import regiFormImg from "../../assets/Frame5_2.svg";
+import {useAddUserNameMutation} from "../../store/quizApi";
 import { supabase } from "../../supabaseClient";
 
 import styles from "./RegisterForm.module.scss"
 
 export default function RegisterForm() {
+    const [addUserProfile] = useAddUserNameMutation();
     const navigate = useNavigate();
     const { register, handleSubmit, setError, formState: { errors }, watch } = useForm({ defaultValues: { name: "", email: "", password: "", passwordCheck: "" } });
     const [shake, setShake] = useState(false);
 
     const onSubmit = async (e) => {
-        delete e["passwordCheck"];
-        delete e["name"];
+        console.log(e.name);
+        const name = e.name;
+        const email = e.email;
+        const password = e.password;
+        // delete e["passwordCheck"];
+        // delete e["name"];
 
         try {
-            const { error } = await supabase.auth.signUp(e);
+            const { data, error } = await supabase.auth.signUp({email, password});
 
             if (error) {
                 if (error.message.includes("User already registered")){
@@ -34,6 +40,14 @@ export default function RegisterForm() {
 
                 return;
             }
+
+            let user = data.user;
+
+            console.log(name);
+            await addUserProfile({
+                id: user.id,
+                name:name,
+            })
             navigate("/quiz");
         } catch (err) {
             console.error("Unexpected error:", err);

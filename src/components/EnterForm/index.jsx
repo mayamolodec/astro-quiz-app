@@ -11,12 +11,11 @@ export default function EnterForm() {
     const navigate = useNavigate();
     const { register, handleSubmit, setError, formState: { errors } } = useForm({ defaultValues: { email: "", password: "" } });
     const [shake, setShake] = useState(false);
-    // const [signIn] = useSignInMutation();
 
     const onSubmit = async (e) => {
 
         try {
-            const { data: signInData, error } = await supabase.auth.signInWithPassword(e);
+            const { error } = await supabase.auth.signInWithPassword(e);
 
               if (error) {
                 setError("password", {
@@ -30,7 +29,6 @@ export default function EnterForm() {
                 return;
               }
 
-              console.log("User signed in:", signInData.user);
               navigate("/quiz");
         }
         catch (err) {

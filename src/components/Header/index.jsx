@@ -18,7 +18,7 @@ export default function Header() {
             </Link>
             <div className={`${styles["container__left-links"]} ${isOpen ? styles.show : ""}`}>
                 <Link to="/ListQuizzes" >Quizzes</Link>
-                <Link to="/ListQuizzes" >Raiting</Link>
+                {/* <Link to="/ListQuizzes" >Raiting</Link> */}
             </div>
             <button className={styles["container__left-burger"]} onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
                 ☰
