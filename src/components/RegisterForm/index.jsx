@@ -16,12 +16,9 @@ export default function RegisterForm() {
     const [shake, setShake] = useState(false);
 
     const onSubmit = async (e) => {
-        console.log(e.name);
         const name = e.name;
         const email = e.email;
         const password = e.password;
-        // delete e["passwordCheck"];
-        // delete e["name"];
 
         try {
             const { data, error } = await supabase.auth.signUp({email, password});

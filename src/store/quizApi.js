@@ -21,6 +21,11 @@ export const quizApi = createApi({
     getUser: builder.query({
       query: (id) => `profiles?id=eq.${id}`,
     }),
+    getResult: builder.query({
+      query: (id) => `results?select=*,quizzes(name)&user_id=eq.${id}`,
+      providesTags: (result, error, userId) =>
+        result ? [{ type: "Results", id: userId }] : [],
+    }),
     addResult: builder.mutation({
       query:({user_id, quiz_id, result}) =>({
         url:"/results",
@@ -30,7 +35,8 @@ export const quizApi = createApi({
           quiz_id,
           result
         }
-      })
+      }),
+      invalidatesTags: (result, error, { user_id }) => [{ type: "Results", id: user_id }],
     }),
     addUserName: builder.mutation({
       query: ({id, name}) => ({
@@ -39,9 +45,6 @@ export const quizApi = createApi({
         body:{name}
       })
     }),
-    getResult: builder.query({
-      query: (id) => `results?select=*,quizzes(name)&user_id=eq.${id}`, //results?select=*,quizzes(name)&user_id=eq.YOUR_ID   results?quizzes(name)&user_id=eq.${id}&select=*
-    })
   }),
 
 });

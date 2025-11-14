@@ -39,6 +39,7 @@
     cursor: pointer;
   }
 
+
   &__left-img {
     width: 30px;
     padding: 1px;
@@ -66,9 +67,9 @@
       }
     }
 
-    &__left-burger {
-      color: #ffffff;
+    &__left-burger{
       display: flex;
+      align-items: center;
     }
   }
 

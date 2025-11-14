@@ -30,9 +30,9 @@ export default function Profile() {
         return <h2>No profile data found</h2>;
       }
 
-    if (!data || data.length === 0) {
-        return <h2>No results data found</h2>;
-    }
+    // if (!data || data.length === 0) {
+    //     return <h2>No results data found</h2>;
+    // }
 
     const userProfile = userData[0];
     const onSubmit = async() =>{
@@ -49,10 +49,10 @@ export default function Profile() {
         const { quizzes, result } = quiz;
         const name = quizzes.name;
 
-        if (!acc[name]) acc[name] = { name:name, tries: 0, maxResult: 0 };
+        if (!acc[name]) acc[name] = { name:name, tries: 0, lastResult: 0 };
 
         acc[name].tries += 1;
-        acc[name].maxResult = Math.max(acc[name].maxResult, result);
+        acc[name].lastResult = result;
 
         return acc;
     }, {}));
@@ -63,7 +63,7 @@ export default function Profile() {
             <div  key = {stat.name}>
                 <span style={{ color: "#9F50B1" }}>{stat.name}:</span><br></br>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
-                    <span>{stat.tries} tr{stat.tries == 1?"y": "ies"}</span><span> {stat.maxResult}/4 points</span>
+                    <span>{stat.tries} tr{stat.tries == 1?"y": "ies"}</span><span> {stat.lastResult}/4 points</span>
                 </div>
             </div>
 
@@ -75,7 +75,7 @@ export default function Profile() {
             <div className={styles["container__card"]}>
                 <p> <span style={{ color: "#9F50B1" }}>Name:</span> {userProfile.name}</p>
                 <p> <span style={{ color: "#9F50B1" }}>Email:</span> {userProfile.email}</p>
-                <div>{listResults}</div>
+                <div>{data && data.length > 0 ? listResults : "No results yet"}</div>
                 <button className={styles["container__card-button"]} onClick={onSubmit}>
                     Sign Out
                 </button>
