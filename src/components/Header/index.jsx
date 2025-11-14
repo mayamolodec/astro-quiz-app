@@ -16,18 +16,18 @@ export default function Header() {
             <Link to="/ListQuizzes">
                 <img className={styles["container__left-img"]} alt="Go to homepage" src="/favicon.svg" />
             </Link>
-            <div className={`${styles["container__left-links"]} ${isOpen ? styles.show : ""}`}>
+            <div className={`${styles["container__left-links"]}  ${isOpen ? styles.show : ""}` } onClick={() => setIsOpen(false)}>
                 <Link to="/ListQuizzes" >Quizzes</Link>
                 {/* <Link to="/ListQuizzes" >Raiting</Link> */}
             </div>
             <button className={styles["container__left-burger"]} onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
-                ☰
+                <img className={styles["container__left-img"]} src="/burger.svg" alt="Menu" />
             </button>
         </div>
 
         <div className={styles["container__right"]}>
             <div className={styles["container__right-menu"]} >
-                <Link to="/Profile" >Profile</Link>
+                <Link to="/profile" >Profile</Link>
                 <img className={styles["container__right-img"]} src={`/avatar_${userStatus}.png`} />
             </div>
         </div>

@@ -25,7 +25,7 @@ export default function QuizCard() {
 
     const questions = data;
 
-    const submitAnswer = (e) => {
+    const submitAnswer = async(e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const selectedValue = formData.get("answer");
@@ -40,25 +40,25 @@ export default function QuizCard() {
         }
         else {
             setIsFinished(true);
+
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+
+                if (!user) return;
+
+                await addResult({
+                  user_id: user.id,
+                  quiz_id: id,
+                  result: currentScore + (selectedValue === "true" ? 1 : 0),
+                });
+              } catch (err) {
+                console.error("Unexpected error:", err);
+              }
         }
     }
 
     const submitResults = async(e) => {
         e.preventDefault();
-        const { data: { user } } = await supabase.auth.getUser();
-
-        if (!user) return;
-
-        try{
-            await addResult({
-                user_id: user.id,
-                quiz_id: id,
-                result: currentScore
-              })
-        }
-        catch (err){
-            console.error("Unexpected error:", err);
-        }
         navigate("/quiz");
     }
 
