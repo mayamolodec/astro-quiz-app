@@ -1,19 +1,23 @@
+<img src="public/favicon.svg" width=8%>
+
 # React application: Astronomy quiz
 
-An interactive quiz platform built with React, focused on testing and improving users' knowledge of astronomy.
+This is my personal project: an interactive quiz platform built with React, focused on testing and improving users' knowledge of astronomy.
+
+Accessible by this link: https://astro-quiz-vol.netlify.app
 
 ### Current features:
 - User authentication (login/register);
 - Several quizzes with single-choice questions with images;
-- Score feedback and result screen;
+- Score feedback and results on the profile page;
 - Responsive design;
 - Personal user account;
 
 ### Planned features:
 - Usesrs score raiting;
 - Multiple language support;
-- Quiz creation by user;
+- Anon user to see quizzes without registration;
 
-All content and visuals were created by me.
+All content and visuals were designed and by me.
 
-The backend was developed by my mentor on this project.
+The backend is made with Supabase.
