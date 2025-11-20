@@ -8,7 +8,8 @@ import styles from "./Header.module.scss"
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false)
-    const { user } = useAuth();
+    const { user} = useAuth();
+
     let userStatus = user? "auth": "unauth";
 
     return <nav className={styles.container}>

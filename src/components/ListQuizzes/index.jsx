@@ -6,7 +6,6 @@ import QuizButton from "../QuizButton";
 import styles from "./ListQuizzes.module.scss"
 
 export default function ListQuizzes() {
-
   const { data, isLoading, error } = useGetQuizzesQuery();
 
   if (isLoading) return <p>Loading quizzes...</p>;

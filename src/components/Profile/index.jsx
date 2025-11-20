@@ -11,6 +11,7 @@ export default function Profile() {
     const { user, loading } = useAuth();
     const navigate = useNavigate();
     const id = user?.id;
+
     const { data, isLoading } = useGetResultQuery(id, {
         skip: !id,
       });
@@ -18,8 +19,8 @@ export default function Profile() {
         skip: !id,
       });
 
-    if (isLoadingUser || loading || isLoading) {
-        return <h2>Loading user...</h2>;
+    if  (loading || isLoading || isLoadingUser) {
+        return <h2>Loading profile...</h2>;
     }
 
     if (!user) {
@@ -29,10 +30,6 @@ export default function Profile() {
     if (!userData || userData.length === 0) {
         return <h2>No profile data found</h2>;
       }
-
-    // if (!data || data.length === 0) {
-    //     return <h2>No results data found</h2>;
-    // }
 
     const userProfile = userData[0];
     const onSubmit = async() =>{

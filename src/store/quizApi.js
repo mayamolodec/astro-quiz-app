@@ -1,12 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+import { supabase } from "../supabaseClient";
+
 export const quizApi = createApi({
   reducerPath: "quizApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/`,
-    prepareHeaders: (headers) => {
+    prepareHeaders: async (headers) => {
+      const { data } = await supabase.auth.getSession();
+      const token = data.session?.access_token;
+
+      // console.log("JWT token exists");
+      if (token) headers.set("Authorization", `Bearer ${token}`);
       headers.set("apikey", import.meta.env.VITE_SUPABASE_ANON_KEY);
-      headers.set("Authorization", `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`);
 
       return headers;
     },
@@ -19,7 +25,7 @@ export const quizApi = createApi({
       query: (id) => `questions?quiz_id=eq.${id}&select=*&order=id.asc`,
     }),
     getUser: builder.query({
-      query: (id) => `profiles?id=eq.${id}`,
+      query: (id) => `profiles?id=eq.${id}&select=*`,
     }),
     getResult: builder.query({
       query: (id) => `results?select=*,quizzes(name)&user_id=eq.${id}`,
