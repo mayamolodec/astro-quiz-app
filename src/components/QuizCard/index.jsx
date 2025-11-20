@@ -21,7 +21,7 @@ export default function QuizCard() {
     if (error) return <p>Error loading quiz</p>;
     if (!data) return <p>No data found</p>;
 
-    const placeHolderImg = "https://jmwdqvycbnpbjivfzukh.supabase.co/storage/v1/object/public/Quiz_images/placeholder.webp";
+    const placeHolderImg = "/placeholder.webp";
 
     const questions = data;
 
