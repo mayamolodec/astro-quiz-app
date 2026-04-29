@@ -18,11 +18,12 @@ export default function RegisterForm() {
         delete e["passwordCheck"];
 
         try {
-            await signUp(e).unwrap();
+            await signUp(e);
+            console.log(e);
             navigate("/quiz");
         }
         catch (error) {
-            if (error?.status === 400) {
+            if (error?.status === 403) {
                 console.log("User already exists");
                 setError("email", {
                     type: "manual",

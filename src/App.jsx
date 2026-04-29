@@ -7,7 +7,7 @@ import ListQuizzes from "./components/ListQuizzes";
 import Profile from "./components/Profile";
 import QuizCard from "./components/QuizCard";
 import RegisterForm from "./components/RegisterForm";
-import PrivateRoute from "./utils/auth";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
   return (

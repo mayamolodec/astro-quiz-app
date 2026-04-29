@@ -14,7 +14,15 @@ export const quizApi = createApi({
       query: (id) => `quizes/${id}`,
     }),
     getCurrentUser: builder.query({
-      query: () => "users/me",
+      query: () => "users/show-me",
+      providesTags: ["Auth"]
+    }),
+    signOut: builder.mutation({
+      query: () => ({
+        url: "users/sign-out",
+        method: "POST",
+      }),
+      invalidatesTags: ["Auth"]
     }),
     signUp: builder.mutation({
       query: (userData) => ({
@@ -25,6 +33,7 @@ export const quizApi = createApi({
           "Content-Type": "application/json",
         },
       }),
+      invalidatesTags: ["Auth"]
     }),
 
     signIn: builder.mutation({
@@ -36,6 +45,7 @@ export const quizApi = createApi({
           "Content-Type": "application/json",
         },
       }),
+      invalidatesTags: ["Auth"]
     }),
   }),
 });
@@ -46,4 +56,5 @@ export const {
   useGetCurrentUserQuery,
   useSignInMutation,
   useSignUpMutation,
+  useSignOutMutation,
 } = quizApi;

@@ -15,7 +15,7 @@ export default function Header() {
     return <nav className={styles.container}>
         <div className={styles["container__left"]}>
             <Link to="/ListQuizzes">
-                <img className={styles["container__left-img"]} alt="Go to homepage" src="/public/favicon.svg" />
+                <img className={styles["container__left-img"]} alt="Go to homepage" src="/favicon.svg" />
             </Link>
             <div className={`${styles["container__left-links"]} ${isOpen ? styles.show : ""}`}>
                 <Link to="/ListQuizzes" >Quizzes</Link>
@@ -29,7 +29,7 @@ export default function Header() {
         <div className={styles["container__right"]}>
             <div className={styles["container__right-menu"]} >
                 <Link to="/Profile" >Profile</Link>
-                <img className={styles["container__right-img"]} src={`/public/avatar_${userStatus}.png`} />
+                <img className={styles["container__right-img"]} src={`/avatar_${userStatus}.png`} />
             </div>
         </div>
     </nav>

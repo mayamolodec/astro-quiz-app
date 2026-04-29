@@ -16,7 +16,7 @@ export default function EnterForm() {
     const onSubmit = async (e) => {
 
         try {
-            await signIn(e).unwrap();
+            await signIn(e);
             navigate("/quiz");
         }
         catch (error) {
