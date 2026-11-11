@@ -2,15 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useAuth } from "../../context/AuthContext.jsx";
-
 import styles from "./Header.module.scss"
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false)
-    const { user} = useAuth();
-
-    let userStatus = user? "auth": "unauth";
 
     return <nav className={styles.container}>
         <div className={styles["container__left"]}>
@@ -29,7 +24,7 @@ export default function Header() {
         <div className={styles["container__right"]}>
             <div className={styles["container__right-menu"]} >
                 <Link to="/profile" >Profile</Link>
-                <img className={styles["container__right-img"]} src={`/avatar_${userStatus}.png`} />
+                <img className={styles["container__right-img"]} src={`/avatar_${"auth"}.png`} />
             </div>
         </div>
     </nav>

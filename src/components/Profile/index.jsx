@@ -1,66 +1,52 @@
-import React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
-import { useAuth } from "../../context/AuthContext.jsx";
-import { useGetResultQuery, useGetUserQuery } from "../../store/quizApi.js";
-import { supabase } from "../../supabaseClient";
+import { useGetQuizzesQuery } from "../../store/quizApi";
+import { getGuestName, generateNewGuestName } from "../../utils/guestName";
+import {getAllQuizResults, clearAllQuizResults} from "../../utils/quizStorage";
 
 import styles from "./Profile.module.scss";
 
 export default function Profile() {
-    const { user, loading } = useAuth();
-    const navigate = useNavigate();
-    const id = user?.id;
 
-    const { data, isLoading } = useGetResultQuery(id, {
-        skip: !id,
-      });
-    const { data: userData, isLoading: isLoadingUser} = useGetUserQuery(id, {
-        skip: !id,
-      });
+    const { data:quizzes, isLoading, error } = useGetQuizzesQuery();
+    const [results, setResults] = useState(getAllQuizResults);
+    const [guestName, setGuestName] = useState(getGuestName);
 
-    if  (loading || isLoading || isLoadingUser) {
-        return <h2>Loading profile...</h2>;
-    }
+    const handleChangeName = () => {
+      const newName = generateNewGuestName();
 
-    if (!user) {
-        return <Navigate to="/sign-in" />
-    }
+      setGuestName(newName);
+    };
 
-    if (!userData || userData.length === 0) {
-        return <h2>No profile data found</h2>;
-      }
+    if (isLoading) return <p>Loading...</p>;
+    if (error) return <p>Error loading quizzes</p>;
 
-    const userProfile = userData[0];
-    const onSubmit = async() =>{
-        try{
-            await supabase.auth.signOut();
-            navigate("/sign-in");
-        }
-        catch (err){
-            console.log(err);
-        }
-    }
+  const stats = (quizzes ?? [])
+    .filter((quiz) => results[String(quiz.id)])
+    .map((quiz) => ({
+      id: quiz.id,
+      name: quiz.name,
+      ...results[String(quiz.id)],
+    }));
 
-    let stats = Object.values(data.reduce((acc, quiz) => {
-        const { quizzes, result } = quiz;
-        const name = quizzes.name;
+    const handleClearResults = () => {
+        const confirmed = window.confirm(
+          "Delete all your saved quiz results?"
+        );
 
-        if (!acc[name]) acc[name] = { name:name, tries: 0, lastResult: 0 };
+        if (!confirmed) return;
 
-        acc[name].tries += 1;
-        acc[name].lastResult = result;
+        clearAllQuizResults();
+        setResults({});
+      };
 
-        return acc;
-    }, {}));
-
-    console.log
     const listResults = stats.map((stat) => {
         return (
             <div  key = {stat.name}>
                 <span style={{ color: "#9F50B1" }}>{stat.name}:</span><br></br>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
-                    <span>{stat.tries} tr{stat.tries == 1?"y": "ies"}</span><span> {stat.lastResult}/4 points</span>
+                <span>{stat.tries ?? 1}{" "}{(stat.tries ?? 1) === 1 ? "try" : "tries"}</span>
+                <span> {stat.score}/4 points</span>
                 </div>
             </div>
 
@@ -70,14 +56,14 @@ export default function Profile() {
     return (
         <div className={styles["container"]}>
             <div className={styles["container__card"]}>
-                <p> <span style={{ color: "#9F50B1" }}>Name:</span> {userProfile.name}</p>
-                <p> <span style={{ color: "#9F50B1" }}>Email:</span> {userProfile.email}</p>
-                <div>{data && data.length > 0 ? listResults : "No results yet"}</div>
-                <button className={styles["container__card-button"]} onClick={onSubmit}>
-                    Sign Out
-                </button>
+                <div className={styles["container__guest-name"]}>
+                <p> <span style={{ color: "#9F50B1" }}>Guest:</span> {guestName}</p>
+                <button type="button" className={styles["container__change-name-button"]} onClick={handleChangeName}
+                    aria-label="Generate a new guest name" title="Generate a new name">↻</button>
+                </div>
+                <div>{stats.length > 0 ? listResults : "No results yet"}</div>
+                <button className={styles["container__clear-button"]} onClick={handleClearResults}>Clear results</button>
             </div>
-
         </div>
     )
 }

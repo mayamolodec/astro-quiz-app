@@ -17,18 +17,16 @@ $border-radius-small: 0.6em;
     animation: fancyFade 0.8s ease-out;
 
     &__card {
-        margin: 2em;
+        margin: 2em 2em 1.5em 2em;
         display: flex;
         flex-direction: column;
         gap: 0.6em;
         flex: 1;
-        max-width: 15em;
+        max-width: 20em;
 
         p {
             margin: 0;
         }
-
-
 
         @keyframes fancyFade {
             0% {
@@ -45,12 +43,67 @@ $border-radius-small: 0.6em;
         }
     }
 
+    &__guest-name {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__clear-button {
+        padding: 8px 16px;
+        border: 1px solid #c84b65;
+        border-radius: 40px;
+        background: transparent;
+        color: #c84b65;
+        font: inherit;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: rgba(200, 75, 101, 0.1);
+        }
+
+        &:focus-visible {
+          outline: 2px solid #c84b65;
+          outline-offset: 3px;
+        }
+      }
+
+    &__change-name-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 32px;
+        height: 32px;
+
+        border: 1px solid #9f50b1;
+        border-radius: 8px;
+
+        background: transparent;
+        color: #9f50b1;
+
+        font-size: 24px;
+        cursor: pointer;
+
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: rgba(159, 80, 177, 0.1);
+        }
+
+        &:focus-visible {
+          outline: 2px solid #9f50b1;
+          outline-offset: 2px;
+        }
+    }
 
     &__card-button {
         margin-top: 0.3em;
         width: 100%;
         border: none;
-        border-radius: $border-radius-small;
+        border-radius: 0 0 $border-radius-small $border-radius-small;
         background-color: #9F50B1;
         padding: 0.75em;
         color: white;

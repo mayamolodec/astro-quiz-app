@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 
-import { useAddResultMutation } from "../../store/quizApi";
 import { useGetQuestionsQuery } from "../../store/quizApi";
-import { supabase } from "../../supabaseClient";
+import { saveQuizResult } from "../../utils/quizStorage";
 import ShowQuestion from "../ShowQuestion/index";
 import ShowResults from "../ShowResults/index";
 
@@ -15,7 +14,17 @@ export default function QuizCard() {
     const [selected, setSelected] = useState(null);
     const { data, isLoading, error } = useGetQuestionsQuery(id);
     const navigate = useNavigate();
-    const [addResult] = useAddResultMutation();
+
+    useEffect(() => {
+        if (!data) return;
+
+        const nextQuestion = data[currentQuestionIndex + 1];
+
+        if (!nextQuestion?.img_url) return;
+        const image = new Image();
+
+        image.src = nextQuestion.img_url;
+    }, [data, currentQuestionIndex]);
 
     if (isLoading) return <p>Loading quizzes...</p>;
     if (error) return <p>Error loading quiz</p>;
@@ -30,30 +39,23 @@ export default function QuizCard() {
         const formData = new FormData(e.target);
         const selectedValue = formData.get("answer");
 
-        if (selectedValue === "true") {
-            setCurrentScore(score => score + 1);
-        }
+        const newScore = currentScore + (selectedValue === "true" ? 1 : 0);
+
+        setCurrentScore(newScore);
 
         if (questions[currentQuestionIndex + 1]) {
             setCurrentQuestionIndex(prev => prev + 1);
             setSelected(null);
         }
         else {
-            setIsFinished(true);
 
             try {
-                const { data: { user } } = await supabase.auth.getUser();
-
-                if (!user) return;
-
-                await addResult({
-                  user_id: user.id,
-                  quiz_id: id,
-                  result: currentScore + (selectedValue === "true" ? 1 : 0),
-                });
+                saveQuizResult(id, newScore, questions.length);
               } catch (err) {
-                console.error("Unexpected error:", err);
+                console.error("Failed to save quiz result:", err);
               }
+
+            setIsFinished(true);
         }
     }
 

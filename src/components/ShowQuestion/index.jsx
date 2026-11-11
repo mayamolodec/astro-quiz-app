@@ -17,7 +17,7 @@ export default function ShowQuestion({ currentQuestion, onSubmit, placeHolderImg
         <>
             <div className={styles["container"]}>
                 <form className={styles["container__card"]} onSubmit={onSubmit}>
-                    <img className={styles["container__card-img"]} src={currentQuestion.img_url || placeHolderImg} />
+                <img className={styles["container__card-img"]} src={currentQuestion.img_url || placeHolderImg} alt="" decoding="async"/>
                     <div className={styles["container__card-text"]}>
                         <h2 className={styles["container__card-text-question"]}>
                             {currentQuestion.text}
