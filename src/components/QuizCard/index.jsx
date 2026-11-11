@@ -14,6 +14,7 @@ export default function QuizCard() {
     const [selected, setSelected] = useState(null);
     const { data, isLoading, error } = useGetQuestionsQuery(id);
     const navigate = useNavigate();
+    const resultsImg = "/placeholder.webp";
 
     useEffect(() => {
         if (!data) return;
@@ -25,6 +26,12 @@ export default function QuizCard() {
 
         image.src = nextQuestion.img_url;
     }, [data, currentQuestionIndex]);
+
+    useEffect(() => {
+        const image = new Image();
+
+        image.src = resultsImg;
+    }, [resultsImg]);
 
     if (isLoading) return <p>Loading quizzes...</p>;
     if (error) return <p>Error loading quiz</p>;
@@ -64,9 +71,13 @@ export default function QuizCard() {
         navigate("/quiz");
     }
 
+    const navigateToProfile = () => {
+        navigate("/profile");
+    };
+
     return isFinished ?
         <ShowResults currentScore={currentScore} numberOfQuestions={questions.length} onSubmit={submitResults}
-            placeHolderImg={placeHolderImg} /> :
+        onViewProfile={navigateToProfile} placeHolderImg={resultsImg} /> :
         <ShowQuestion currentQuestion={questions[currentQuestionIndex]} onSubmit={submitAnswer}
             placeHolderImg={placeHolderImg} selected={selected} setSelected={setSelected} />;
 }

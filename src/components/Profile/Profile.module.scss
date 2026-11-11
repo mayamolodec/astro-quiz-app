@@ -1,79 +1,43 @@
 $font-size-base: 1em;
 $font-size-lg: 1.5em;
-$border-width: 0.0625em;
 $border-radius: 1.875em;
 $border-radius-small: 0.6em;
 
-
 .container {
-    color: hsl(210deg, 30%, 12%);
-    min-height: fit-content;
-    margin: 5em auto;
-    border-radius: $border-radius;
-    background-color: white;
     width: 100%;
-    max-width: fit-content;
-    min-width: fit-content;
+    max-width: 23em;
+    min-width: 15em;
+    margin: 5em auto;
+    color: hsl(210deg, 30%, 12%);
+    background: transparent;
+    border-radius: 0;
     animation: fancyFade 0.8s ease-out;
 
     &__card {
-        margin: 2em 2em 1.5em 2em;
+        margin: 0;
+        padding: 2em 2em 1.5em;
+
         display: flex;
         flex-direction: column;
         gap: 0.6em;
-        flex: 1;
-        max-width: 20em;
 
-        p {
-            margin: 0;
-        }
-
-        @keyframes fancyFade {
-            0% {
-                opacity: 0;
-                transform: scale(0.98);
-                filter: blur(0.25em);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1);
-                filter: blur(0);
-            }
-        }
+        background-color: white;
+        border-radius: $border-radius $border-radius 0 0;
     }
 
     &__guest-name {
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: space-between;
         gap: 12px;
     }
-
-    &__clear-button {
-        padding: 8px 16px;
-        border: 1px solid #c84b65;
-        border-radius: 40px;
-        background: transparent;
-        color: #c84b65;
-        font: inherit;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-
-        &:hover {
-          background-color: rgba(200, 75, 101, 0.1);
-        }
-
-        &:focus-visible {
-          outline: 2px solid #c84b65;
-          outline-offset: 3px;
-        }
-      }
 
     &__change-name-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
 
         width: 32px;
         height: 32px;
@@ -86,34 +50,74 @@ $border-radius-small: 0.6em;
 
         font-size: 24px;
         cursor: pointer;
-
         transition: background-color 0.2s ease;
 
         &:hover {
-          background-color: rgba(159, 80, 177, 0.1);
+            background-color: rgba(159, 80, 177, 0.1);
         }
 
         &:focus-visible {
-          outline: 2px solid #9f50b1;
-          outline-offset: 2px;
+            outline: 2px solid #9f50b1;
+            outline-offset: 2px;
         }
     }
 
-    &__card-button {
-        margin-top: 0.3em;
-        width: 100%;
-        border: none;
-        border-radius: 0 0 $border-radius-small $border-radius-small;
-        background-color: #9F50B1;
-        padding: 0.75em;
-        color: white;
-        font-family: "Space Mono", serif;
-        font-size: $font-size-base;
+    &__clear-button {
+        padding: 8px 16px;
+        margin-top: 0.5em;
+
+        border: 1px solid #c84b65;
+        border-radius: 40px;
+
+        background: transparent;
+        color: #c84b65;
+
+        font: inherit;
         cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: rgba(200, 75, 101, 0.1);
+        }
+
+        &:focus-visible {
+            outline: 2px solid #c84b65;
+            outline-offset: 3px;
+        }
+    }
+
+    &__button {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 18px 0;
+
+        border: none;
+        border-radius: 0 0 $border-radius $border-radius;
+
+        background-color: #9F50B1;
+        color: white;
+        font: inherit;
+        cursor: pointer;
+
         transition: background-color 0.2s;
 
         &:hover {
             background-color: #8c489c;
-        }
     }
+}
+
+@keyframes fancyFade {
+    0% {
+        opacity: 0;
+        transform: scale(0.98);
+        filter: blur(0.25em);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
 }
