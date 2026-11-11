@@ -21,6 +21,10 @@ $border-radius-small: 0.6em;
         flex-direction: column;
         gap: 0.6em;
 
+        p{
+            margin: 0;
+        }
+
         background-color: white;
         border-radius: $border-radius $border-radius 0 0;
     }
