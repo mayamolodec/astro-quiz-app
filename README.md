@@ -7,7 +7,6 @@ This is my personal project: an interactive quiz platform built with React, focu
 Accessible by this link: https://astro-quiz-vol.netlify.app
 
 ### Current features:
-- User authentication (login/register);
 - Several quizzes with single-choice questions with images;
 - Score feedback and results on the profile page;
 - Responsive design;
@@ -16,8 +15,11 @@ Accessible by this link: https://astro-quiz-vol.netlify.app
 ### Planned features:
 - Usesrs score raiting;
 - Multiple language support;
-- Anon user to see quizzes without registration;
+- Full answers for registered users;
+  
+### Currently unavailable features:
+- User authentication (login/register);
 
-All content and visuals were designed and by me.
+All content and visuals were created and designed and by me.
 
 The backend is made with Supabase.
